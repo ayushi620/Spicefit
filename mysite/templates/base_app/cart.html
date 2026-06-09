@@ -1,0 +1,263 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiceFit | Gourmet Health & Nutrition</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="{% static 'css/cart.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body data-user-authenticated="{{ request.user.is_authenticated|yesno:'true,false' }}">
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="menu-toggle" id="menuBtn"><i class="fa-solid fa-bars-staggered"></i></div>
+            <div class="logo">SPICEFIT<span>.</span></div>
+        </div>
+
+        <div class="nav-center-links">
+            <a href="/home">Home</a>
+            <a href="/menu">Our Menu</a>
+            <a href="/about">About us</a>
+            <a href="/review">Review</a>
+        </div>
+
+        <div class="nav-right-icons">
+
+    <a href="/like"><i class="fa-regular fa-heart"></i></a>
+    <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+
+    <div class="profile-dropdown">
+
+        <details class="profile-toggle">
+
+            <summary>
+                <i class="fa-regular fa-user"></i>
+            </summary>
+
+            <div class="profile-menu">
+                <a href="/premium"><i class="fa-solid fa-crown"></i> Premium</a>
+                <a href="/profile"><i class="fa-solid fa-id-badge"></i> Profile</a>
+                <hr>
+                <a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            </div>
+
+        </details>
+
+    </div>
+
+</div>
+        </div>
+    </nav>
+
+    <!-- Sidebar / Dashboard -->
+    <aside class="dashboard" id="dashboard">
+        <nav id="dashboardNav">
+            <a href="/quick"><i class="fa-solid fa-bolt"></i> Quick Recipe</a>
+            <a href="/mood"><i class="fa-solid fa-face-angry"></i> Moody Recipe</a>
+            <a href="/parents"><i class="fa-solid fa-baby"></i> For New Parents</a>
+            <a href="/plans"><i class="fa-solid fa-calendar-check"></i> Our Plans</a>
+            <a href="/meal"><i class="fa-solid fa-bullseye"></i> Meal Challenges</a>
+            <a href="/filter"><i class="fa-solid fa-magnifying-glass"></i> Ingredients Filter</a>
+            <a href="/expert"><i class="fa-solid fa-stethoscope"></i> Expert Advice</a>
+            <a href="/book"><i class="fa-solid fa-book"></i> Explore Book</a>
+            <a href="/OwnRecipe"><i class="fa-solid fa-plus-circle"></i> Add Your Own Recipe</a>
+        </nav>
+    </aside>
+ 
+  
+<div class="main-content" id="mainContent">
+    <div class="container">
+
+      <!-- LEFT -->
+      <div class="items">
+        <div id="cartItems"></div>
+
+      <div id="cartOptions" class="cart-options">
+      
+        <div class="cart-success">
+          <i class="fa-solid fa-circle-check"></i>
+          <div>
+            <h3>Dish added to cart</h3>
+            <p>Your item is ready in the cart</p>
+          </div>
+        </div>
+      
+        <div class="cart-actions">
+          <button class="add-more-btn" onclick="addMore()">Add More Items</button>
+          <button class="checkout-btn" onclick="showCheckout()">View Cart & Checkout</button>
+        </div>
+      
+      </div>
+
+        <!-- EMPTY CART -->
+        <div class="empty-cart" id="emptyCart">
+          <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png">
+          <h3>Your cart is empty</h3>
+          <p>Add some healthy meals to get started 🍽️</p>
+        </div>
+      </div>
+
+  
+
+      <!-- RIGHT BILL -->
+      
+<div class="containers" id="checkoutBox">
+<div class="header">Checkout</div>
+
+<!-- Order Summary -->
+<div class="section">
+<div class="label">Order Summary</div>
+<div id="orderList"></div>
+<hr>
+<div class="summary-row total"><span>Total</span><span>₹ <span id="finalTotal">0</span></span></div>
+</div>
+
+<!-- Delivery Address -->
+<div class="section">
+<div class="label">Delivery Address</div>
+<input id="address" placeholder="Enter full address">
+<div id="addrError" class="error">Enter valid address</div>
+</div>
+
+<div class="section">
+<div class="label">Payment Method</div>
+
+<select id="paymentMethod" onchange="showPaymentFields()">
+<option value="">Select Payment Method</option>
+<option value="UPI">UPI</option>
+<option value="CARD">Card</option>
+<option value="COD">Cash on Delivery</option>
+</select>
+
+<div id="payError" class="error">Select payment method</div>
+
+<!-- UPI FIELD -->
+<input type="text" id="upiId" placeholder="Enter UPI ID (example@upi)" style="display:none;margin-top:10px;">
+<div id="upiError" class="error" style="display:none;">Enter valid UPI ID</div>
+
+<!-- CARD FIELDS -->
+<div id="cardBox" style="display:none;margin-top:10px;">
+<input type="text" id="cardNumber" placeholder="Card Number (16 digits)">
+<input type="text" id="cardName" placeholder="Name on Card">
+<input type="text" id="cardExpiry" placeholder="Expiry MM/YY">
+<input type="text" id="cardCVV" placeholder="CVV">
+<div id="cardError" class="error" style="display:none;">Enter valid card details</div>
+</div>
+
+</div>
+
+
+<!-- CAPTCHA -->
+<div class="section">
+<div class="label">CAPTCHA</div>
+<div class="captcha-box">
+  <div class="captcha-text" id="captchaText"></div>
+  <button type="button" onclick="generateCaptcha()">↻</button>
+</div>
+<input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
+<div id="captchaError" class="error">CAPTCHA does not match</div>
+</div>
+
+<!-- Pay Button -->
+<button id="payBtn" onclick="payNow()"><span id="btnText">Pay Now</span><div class="loader" id="loader"></div></button>
+<div id="successMsg" style="color:green;margin-top:10px;"></div>
+</div>
+
+
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>SpiceFit<span>.</span></h3>
+                <p>We believe that food is medicine. Our mission is to bridge the gap between gourmet taste and peak nutritional science.</p>
+            </div>
+            <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="/menu">Our Menu</a></li>
+                        <li><a href="/quick">Quick Recipes</a></li>
+                        <li><a href="/plans">Our Plans</a></li>
+                    </ul>
+                </div>
+               <div class="footer-links">
+    <h4>Learn More </h4>
+    <ul>
+        <li><a href="#">Healthy Eating Tips</a></li>
+        <li><a href="#">Meal Planning Guides</a></li>
+        <li><a href="#">Consult Our Nutritionists</a></li>
+    </ul>
+</div>
+            <div class="footer-newsletter">
+                <h4>Stay Healthy</h4>
+                <p>Subscribe for seasonal recipes and health tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email">
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 SpiceFit Gourmet Health. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+</div>      
+<!-- Premium Modal -->
+<div id="premiumModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:10000;">
+  <div style="background:white;border-radius:12px;padding:20px;width:90%;max-width:400px;text-align:center;position:relative;">
+    <h3>Pay for <span id="modalPlanName"></span></h3>
+    <p>Total: $<span id="modalPlanAmount"></span></p>
+
+    <!-- Payment Options -->
+    <div style="margin:15px 0;">
+      <div class="option" onclick="selectPremiumMethod(this,'UPI')">
+        <i class="fa-brands fa-google-pay"></i> UPI
+      </div>
+      <div class="option" onclick="selectPremiumMethod(this,'CARD')">
+        <i class="fa-solid fa-credit-card"></i> Card
+      </div>
+      <div id="modalPayError" class="error" style="display:none;margin-top:5px;color:red;">Select payment method</div>
+    </div>
+
+    <!-- UPI Input -->
+    <input type="text" id="premiumUPI" placeholder="Enter UPI ID" style="display:none;margin-top:10px;padding:10px;width:100%;border-radius:8px;border:1px solid #ccc;">
+    <div id="premiumUPIError" class="error" style="display:none;color:red;">Enter valid UPI ID</div>
+
+    <!-- Card Inputs -->
+    <div id="cardDetails" style="display:none;margin-top:10px;text-align:left;">
+      <input type="text" id="cardNumber" placeholder="Card Number (16 digits)" style="margin-bottom:10px;padding:10px;width:100%;border-radius:8px;border:1px solid #ccc;">
+      <input type="text" id="cardName" placeholder="Name on Card" style="margin-bottom:10px;padding:10px;width:100%;border-radius:8px;border:1px solid #ccc;">
+      <input type="text" id="cardExpiry" placeholder="Expiry MM/YY" style="margin-bottom:10px;padding:10px;width:100%;border-radius:8px;border:1px solid #ccc;">
+      <input type="text" id="cardCVV" placeholder="CVV" style="margin-bottom:10px;padding:10px;width:100%;border-radius:8px;border:1px solid #ccc;">
+      <div id="cardError" class="error" style="display:none;color:red;">Enter valid card details</div>
+    </div>
+
+    <button onclick="confirmPremiumPayment()" style="margin-top:15px;padding:12px 25px;background:#2e7d32;color:white;border:none;border-radius:8px;cursor:pointer;">Pay Now</button>
+    <button onclick="closePremiumModal()" style="margin-top:10px;padding:12px 25px;background:#ccc;color:#333;border:none;border-radius:8px;cursor:pointer;">Cancel</button>
+  </div>
+</div>
+
+    <!-- JS -->
+    <script src="{% static 'js/cart.js' %}"></script>
+</body>
+</html>
+

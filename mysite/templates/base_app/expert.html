@@ -1,0 +1,207 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiceFit | Gourmet Health & Nutrition</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="{% static 'css/expert.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="overlay" id="overlay"></div>
+
+   <nav class="navbar">
+        <div class="nav-left">
+            <div class="menu-toggle" id="menuBtn"><i class="fa-solid fa-bars-staggered"></i></div>
+            <div class="logo">SPICEFIT<span>.</span></div>
+        </div>
+
+        <div class="nav-center-links">
+            <a href="/home">Home</a>
+            <a href="/menu">Our Menu</a>
+            <a href="/about">About us</a>
+            <a href="/review">Review</a>
+        </div>
+
+        <div class="nav-right-icons">
+
+    <a href="/like"><i class="fa-regular fa-heart"></i></a>
+    <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+
+    <div class="profile-dropdown">
+
+        <details class="profile-toggle">
+
+            <summary>
+                <i class="fa-regular fa-user"></i>
+            </summary>
+
+            <div class="profile-menu">
+                <a href="/premium"><i class="fa-solid fa-crown"></i> Premium</a>
+                <a href="/profile"><i class="fa-solid fa-id-badge"></i> Profile</a>
+                <hr>
+                <a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            </div>
+
+        </details>
+
+    </div>
+
+</div>
+        </div>
+    </nav>
+
+    <!-- Sidebar / Dashboard -->
+    <aside class="dashboard" id="dashboard">
+        <nav id="dashboardNav">
+            <a href="/quick"><i class="fa-solid fa-bolt"></i> Quick Recipe</a>
+            <a href="/mood"><i class="fa-solid fa-face-angry"></i> Moody Recipe</a>
+            <a href="/parents"><i class="fa-solid fa-baby"></i> For New Parents</a>
+            <a href="/plans"><i class="fa-solid fa-calendar-check"></i> Our Plans</a>
+            <a href="/meal"><i class="fa-solid fa-bullseye"></i> Meal Challenges</a>
+            <a href="/filter"><i class="fa-solid fa-magnifying-glass"></i> Ingredients Filter</a>
+            <a href="/expert"><i class="fa-solid fa-stethoscope"></i> Expert Advice</a>
+            <a href="/book"><i class="fa-solid fa-book"></i> Explor Book</a>
+            <a href="/OwnRecipe"><i class="fa-solid fa-plus-circle"></i> Add Your Own Recipe</a>
+        </nav>
+    </aside>
+  <!--NAVIGATION END-->
+  
+  <!--MAIN section START-->
+  <div class="main-content" id="mainContent">
+    <!--Expert EDVICE-SECTION START-->
+    <section class="expert-advice-section">
+        <div class="container">
+            <h2>Healthy Eating & Home Remedies</h2>
+            <p>Tips from moms, grandmothers, and elders to stay healthy, fight illnesses, and eat wisely.</p>
+
+            <div class="advice-cards">
+                <div class="card">
+                    <div class="icon-bg"><i class="fa-solid fa-mug-hot"></i></div>
+                    <h3>Cold & Flu</h3>
+                    <p>Drink warm ginger-honey tea to soothe the throat and boost immunity.</p>
+                    <span class="advice-from">— Mom</span>
+                </div>
+
+                <div class="card">
+                  <div class="icon-bg"><i class="fa-solid fa-carrot"></i></div>
+                  <h3>Eye Health</h3>
+                  <p>Include carrots and leafy greens in your diet for stronger eyesight.</p>
+                  <span class="advice-from">— Dadi</span>
+                </div>
+
+                <div class="card">
+                    <div class="icon-bg"><i class="fa-solid fa-utensils"></i></div>
+                    <h3>Digestion</h3>
+                    <p>Eat light meals, include fennel seeds or cumin water to aid digestion.</p>
+                    <span class="advice-from">— Nani</span>
+                </div>
+
+                <div class="card">
+                  <div class="icon-bg"><i class="fa-solid fa-apple-whole"></i></div>
+                  <h3>Immune Boost</h3>
+                  <p>Include seasonal fruits, citrus, and nuts in your diet to strengthen immunity.</p>
+                  <span class="advice-from">— Mom</span>
+                </div>
+
+                <div class="card">
+                  <div class="icon-bg"><i class="fa-solid fa-face-smile-beam"></i></div>
+                  <h3>Skin Glow</h3>
+                  <p>Eat antioxidant-rich foods like berries and turmeric for healthy skin.</p>
+                  <span class="advice-from">— Dadi</span>
+                </div>
+
+                <div class="card">
+                  <div class="icon-bg"><i class="fa-solid fa-lemon"></i></div>
+                  <h3>Stomach Ache</h3>
+                  <p>Warm water with a pinch of ajwain or ginger can relieve bloating and gas.</p>
+                  <span class="advice-from">— Nani</span>
+                </div>
+
+                <div class="card">
+                  <div class="icon-bg"><i class="fa-solid fa-bread-slice"></i></div>
+                  <h3>Healthy Weight</h3>
+                  <p>Eat whole grains and balanced meals; avoid excessive fried foods.</p>
+                  <span class="advice-from">— Mom</span>
+                </div>
+
+                <div class="card">
+                  <div class="icon-bg"><i class="fa-solid fa-droplet"></i></div>
+                  <h3>Hydration</h3>
+                  <p>Drink water with lemon or herbal infusions to stay hydrated and active.</p>
+                  <span class="advice-from">— Dadi</span>
+                </div>
+
+                <div class="card">
+                  <div class="icon-bg"><i class="fa-solid fa-leaf"></i></div>
+                  <h3>Liver & Detox</h3>
+                  <p>Eat leafy greens, bitter gourd, and avoid processed foods for liver health.</p>
+                  <span class="advice-from">— Mom</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--EXPERT ADVICE-SECTION END-->
+
+    <!--FOOTER START-->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>SpiceFit<span>.</span></h3>
+                <p>We believe that food is medicine. Our mission is to bridge the gap between gourmet taste and peak nutritional science.</p>
+            </div>
+            <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="/menu">Our Menu</a></li>
+                        <li><a href="/quick">Quick Recipes</a></li>
+                        <li><a href="/plans">Our Plans</a></li>
+                    </ul>
+                </div>
+                        <div class="footer-links">
+                <h4>Learn More </h4>
+                <ul>
+                    <li><a href="#">Healthy Eating Tips</a></li>
+                    <li><a href="#">Meal Planning Guides</a></li>
+                    <li><a href="#">Consult Our Nutritionists</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Stay Healthy</h4>
+                <p>Subscribe for seasonal recipes and health tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email">
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 SpiceFit Gourmet Health. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+    <!--FOOTER END-->
+  </div>
+  <!--MAIN SECTION END-->
+
+    <!-- JS -->
+    <script src="{% static 'js/expert.js' %}"></script>
+</body>
+</html>
+

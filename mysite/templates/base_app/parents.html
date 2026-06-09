@@ -1,0 +1,285 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiceFit | Gourmet Health & Nutrition</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    
+    <link href="{% static 'css/parents.css' %}" rel="stylesheet">
+    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> {% endcomment %}
+</head>
+<body>
+
+<div class="overlay" id="overlay"></div>
+
+ <nav class="navbar">
+        <div class="nav-left">
+            <div class="menu-toggle" id="menuBtn"><i class="fa-solid fa-bars-staggered"></i></div>
+            <div class="logo">SPICEFIT<span>.</span></div>
+        </div>
+
+        <div class="nav-center-links">
+            <a href="/home">Home</a>
+            <a href="/menu">Our Menu</a>
+            <a href="/about">About us</a>
+            <a href="/review">Review</a>
+        </div>
+
+        <div class="nav-right-icons">
+
+    <a href="/like"><i class="fa-regular fa-heart"></i></a>
+    <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+
+    <div class="profile-dropdown">
+
+        <details class="profile-toggle">
+
+            <summary>
+                <i class="fa-regular fa-user"></i>
+            </summary>
+
+            <div class="profile-menu">
+                <a href="/premium"><i class="fa-solid fa-crown"></i> Premium</a>
+                <a href="/profile"><i class="fa-solid fa-id-badge"></i> Profile</a>
+                <hr>
+                <a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            </div>
+
+        </details>
+
+    </div>
+
+</div>
+        </div>
+    </nav>
+
+<aside class="dashboard" id="dashboard">
+    <nav id="dashboardNav">
+        <a href="/quick"><i class="fa-solid fa-bolt"></i> Quick Recipe</a>
+        <a href="/mood"><i class="fa-solid fa-face-angry"></i> Moody Recipe</a>
+        <a href="/parents"><i class="fa-solid fa-baby"></i> For New Parents</a>
+        <a href="/plans"><i class="fa-solid fa-calendar-check"></i> Our Plans</a>
+        <a href="/meal"><i class="fa-solid fa-bullseye"></i> Meal Challenges</a>
+        <a href="/filter"><i class="fa-solid fa-magnifying-glass"></i> Ingredients Filter</a>
+        <a href="/expert"><i class="fa-solid fa-stethoscope"></i> Expert Advice</a>
+        <a href="/book"><i class="fa-solid fa-book"></i> Explore Book</a>
+        <a href="/OwnRecipe"><i class="fa-solid fa-plus-circle"></i> Add Your Own Recipe</a>
+    </nav>
+</aside>
+
+<div class="main-content" id="mainContent">
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Delicious & Healthy First Bites 🍼</h1>
+    <p>Curated age-wise meals for your little one, approved by nutritionists.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('baby-recipes').scrollIntoView({behavior:'smooth'})">
+    Begin Healthy Feeding
+  </button>
+  <button class="btn-secondary" onclick="document.getElementById('tips-section').scrollIntoView({behavior:'smooth'})">
+    “Parenting Tips”
+  </button>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="/media/uploads/ParentBaby.jpeg" alt="Healthy baby food">
+  </div>
+</section>
+
+        <!-- JOURNEY -->
+<!-- JOURNEY -->
+<section class="journey" id="baby-recipes">
+    <div class="age-box">
+<h2>Baby Recipes & Guides</h2>
+        <!-- CATEGORY STRIP -->
+        <div class="category-strip">
+            {% for title in titles %}
+                <button class="cat" onclick="switchCategory(this,'{{ title.Ptitle|slugify }}')">
+                    {{ title.Ptitle }}
+                </button>
+            {% endfor %}
+        </div>
+
+        <!-- TABS FOR EACH CATEGORY -->
+        {% for title in titles %}
+            <div class="tabs {{ title.Ptitle|slugify }}">
+                {% for subcat in title.recipes.all %}
+                    <button class="tab" onclick="openTab(this,'{{ subcat.ParentSTitle|slugify }}')">
+                        {{ subcat.ParentSTitle }}
+                    </button>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <!-- TAB CONTENTS (RECIPES) -->
+        {% for title in titles %}
+            {% for subcat in title.recipes.all %}
+                <div id="{{ subcat.ParentSTitle|slugify }}" class="tab-content">
+                    {% for recipe in subcat.recipes.all %}
+                        <div class="cards"
+                             data-id="{{ recipe.id }}"
+                             data-title="{{ recipe.PrecipeName }}"
+                             data-img="{{ recipe.parent_image.url }}"
+                             data-ing="{{ recipe.Parent_ing }}"
+                             data-recipe="{{ recipe.Parent_steps }}">
+
+                            <div class="image-container">
+                                <img src="{{ recipe.parent_image.url }}" alt="{{ recipe.PrecipeName }}">
+                               {% if recipe.is_premium and not is_premium_user %}
+			<i class="fa-solid fa-crown icon-left crown-premium"></i>
+		{% endif %}
+
+		<i class="fa-solid fa-heart icon-right
+		{% if recipe.is_premium and not is_premium_user %}locked-heart{% endif %}"
+		{% if not recipe.is_premium or is_premium_user %}
+			onclick="likeRecipe(this)"
+		{% endif %}>
+		</i>
+	</div>
+
+	   <h2>{{ recipe.PrecipeName }}</h2>
+
+	  <div class="btn-group">
+
+	<!-- Ingredients Button -->
+	<button class="btn-ing
+	  {% if recipe.is_premium and not is_premium_user %}locked-btn{% endif %}"
+	  
+	  {% if recipe.is_premium and not is_premium_user %}
+		  onclick="premiumAlert(); return false;"
+	  {% else %}
+		  onclick="openBox('Ingredients',this)"
+	  {% endif %}>
+	  
+	  Ingredients
+	</button>
+
+	<!-- Recipe Button -->
+	<button class="btn-view
+	  {% if recipe.is_premium and not is_premium_user %}locked-btn{% endif %}"
+	  
+	  {% if recipe.is_premium and not is_premium_user %}
+		  onclick="premiumAlert(); return false;"
+	  {% else %}
+		  onclick="openBox('Recipe',this)"
+	  {% endif %}>
+	  
+	  View Recipe
+	</button>
+
+	</div> 
+                        </div>
+                    {% endfor %} 
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+    </div>
+</section>
+
+<!-- SAFETY -->
+<section class="safety">
+  <div class="safety-grid">
+    <div class="safe-box">
+      <h3>✅ Safe to Introduce</h3>
+      <div class="list">
+        <div>Rice</div><div>Dal</div><div>Apple</div><div>Carrot</div><div>Oatmeal</div><div>Broccoli</div>
+      </div>
+    </div>
+    <div class="avoid-box">
+      <h3>❌ Avoid</h3>
+      <div class="list">
+        <div>Salt</div><div>Sugar</div><div>Honey</div><div>Nuts</div><div>Popcorn</div><div>Sugary Drinks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- TIPS -->
+<section class="tips" id="tips-section">
+  <h2>Doctor Recommended Tips</h2>
+  <div class="tip">Introduce one food at a time and wait 3 days.</div>
+  <div class="tip">Avoid salt and sugar until 1 year.</div>
+  <div class="tip">Always supervise your baby while eating.</div>
+  <div class="tip">Maintain good hygiene while preparing baby food.</div>
+  <div class="tip">Do not force the baby to eat; let them explore new tastes slowly.</div>
+</section>
+
+
+<!-- footer section start -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>SpiceFit<span>.</span></h3>
+                <p>We believe that food is medicine. Our mission is to bridge the gap between gourmet taste and peak nutritional science.</p>
+            </div>
+            <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="/menu">Our Menu</a></li>
+                        <li><a href="/quick">Quick Recipes</a></li>
+                        <li><a href="/plans">Our Plans</a></li>
+                    </ul>
+                </div>
+               <div class="footer-links">
+    <h4>Learn More </h4>
+    <ul>
+        <li><a href="#">Healthy Eating Tips</a></li>
+        <li><a href="#">Meal Planning Guides</a></li>
+        <li><a href="#">Consult Our Nutritionists</a></li>
+    </ul>
+</div>
+            <div class="footer-newsletter">
+                <h4>Stay Healthy</h4>
+                <p>Subscribe for seasonal recipes and health tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email">
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 SpiceFit Gourmet Health. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+<!-- footer section end -->
+
+</div>
+
+<div class="popupoverlay" id="popupoverlay">
+  <div class="popup">
+    <span onclick="closeBox()">✖</span>
+    <h3 id="pop-title"></h3>
+    <p id="pop-content"></p>
+  </div>
+</div>
+<div id="like-alert" style="display:none;">Added to liked</div>
+      <div id="premium-alert">
+    <span>👑 This recipe is Premium. Please buy Premium to access.</span>
+    
+    <div class="premium-actions">
+        <a href="/premium">
+            <button class="buy-premium-btn">Buy Premium</button>
+        </a>
+        <button class="close-premium-btn" onclick="closePremiumAlert()">Close</button>
+    </div>
+</div>
+<script src="{% static 'js/parents.js' %}"></script>
+</body>
+</html>

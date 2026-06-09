@@ -1,0 +1,221 @@
+
+
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiceFit | Gourmet Health & Nutrition</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="{% static 'css/review.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="overlay" id="overlay"></div>
+
+  <!--NAVIGATION START-->
+   <nav class="navbar">
+        <div class="nav-left">
+            <div class="menu-toggle" id="menuBtn"><i class="fa-solid fa-bars-staggered"></i></div>
+            <div class="logo">SPICEFIT<span>.</span></div>
+        </div>
+
+        <div class="nav-center-links">
+            <a href="/home">Home</a>
+            <a href="/menu">Our Menu</a>
+            <a href="/about">About us</a>
+            <a href="/review">Review</a>
+        </div>
+
+        <div class="nav-right-icons">
+
+    <a href="/like"><i class="fa-regular fa-heart"></i></a>
+    <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+
+    <div class="profile-dropdown">
+
+        <details class="profile-toggle">
+
+            <summary>
+                <i class="fa-regular fa-user"></i>
+            </summary>
+
+            <div class="profile-menu">
+                <a href="/premium"><i class="fa-solid fa-crown"></i> Premium</a>
+                <a href="/profile"><i class="fa-solid fa-id-badge"></i> Profile</a>
+                <hr>
+                <a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            </div>
+
+        </details>
+
+    </div>
+
+</div>
+        </div>
+    </nav>
+
+    <!-- Sidebar / Dashboard -->
+    <aside class="dashboard" id="dashboard">
+        <nav id="dashboardNav">
+            <a href="/quick"><i class="fa-solid fa-bolt"></i> Quick Recipe</a>
+            <a href="/mood"><i class="fa-solid fa-face-angry"></i> Moody Recipe</a>
+            <a href="/parents"><i class="fa-solid fa-baby"></i> For New Parents</a>
+            <a href="/plans"><i class="fa-solid fa-calendar-check"></i> Our Plans</a>
+            <a href="/meal"><i class="fa-solid fa-bullseye"></i> Meal Challenges</a>
+            <a href="/filter"><i class="fa-solid fa-magnifying-glass"></i> Ingredients Filter</a>
+            <a href="/expert"><i class="fa-solid fa-stethoscope"></i> Expert Advice</a>
+            <a href="/book"><i class="fa-solid fa-book"></i> Explore Book</a>
+            <a href="/OwnRecipe"><i class="fa-solid fa-plus-circle"></i> Add Your Own Recipe</a>
+        </nav>
+    </aside>
+ 
+  <!--NAVIGATION END-->
+  
+  <!--MAIN CONTENT START-->
+  <div class="main-content" id="mainContent">
+    <!--REVIEW SECTION START-->
+    <section class="review-section">
+        <div class="status-alert" id="statusMessage">
+            <i class="fa-solid fa-clock"></i> Your review has been submitted and is pending admin approval.
+        </div>
+
+        <div class="review-flex-container">
+            <div class="review-illustration">
+                <img src="https://cdn-icons-png.flaticon.com/512/706/706164.png" alt="Healthy Food Icon">
+            </div>
+
+            <div class="review-form-box">
+                <h2 class="review-title">Review</h2>
+                <p class="review-subtitle">Share your healthy food experience with us.</p>
+            
+                <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="text" name="userName" placeholder="Your Name" class="review-input" required>
+
+    <textarea name="userReview" placeholder="Your Review"
+        class="review-input review-textarea" rows="4" required></textarea>
+
+    <div class="rating-container">
+    <p>Rate your experience:</p>
+
+    <div class="star-rating">
+        <input type="radio" name="rating" id="star5" value="5" required>
+        <label for="star5"><i class="fa-solid fa-star"></i></label>
+
+        <input type="radio" name="rating" id="star4" value="4">
+        <label for="star4"><i class="fa-solid fa-star"></i></label>
+
+        <input type="radio" name="rating" id="star3" value="3">
+        <label for="star3"><i class="fa-solid fa-star"></i></label>
+
+        <input type="radio" name="rating" id="star2" value="2">
+        <label for="star2"><i class="fa-solid fa-star"></i></label>
+
+        <input type="radio" name="rating" id="star1" value="1">
+        <label for="star1"><i class="fa-solid fa-star"></i></label>
+    </div>
+</div>
+
+    {% comment %} <input type="file" name="reviewImage"> {% endcomment %}
+
+    <button type="submit" class="review-submit-btn">Submit Review</button>
+</form>
+
+            </div>
+        </div>
+       <h2 class="bottom-reviews-heading">Our Customer Reviews</h2>
+
+<div class="simple-reviews">
+    {% for r in reviews %}
+    <div class="review {% if forloop.counter|divisibleby:2 %}right{% else %}left{% endif %}">
+        <div class="review-card">
+
+            <h3>{{ r.User_Name }}</h3>
+
+            <div class="rating">
+                {% for i in "12345" %}
+                    {% if forloop.counter <= r.Rating %}
+                        ★
+                    {% else %}
+                        ☆
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <p>{{ r.des }}</p>
+
+            
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+    </section>
+    <!--REVIEW SECTION END-->
+
+    <!--FOOTER START-->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>SpiceFit<span>.</span></h3>
+                <p>We believe that food is medicine. Our mission is to bridge the gap between gourmet taste and peak nutritional science.</p>
+            </div>
+           <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="/menu">Our Menu</a></li>
+                        <li><a href="/quick">Quick Recipes</a></li>
+                        <li><a href="/plans">Our Plans</a></li>
+                    </ul>
+                </div>
+               <div class="footer-links">
+    <h4>Learn More </h4>
+    <ul>
+        <li><a href="#">Healthy Eating Tips</a></li>
+        <li><a href="#">Meal Planning Guides</a></li>
+        <li><a href="#">Consult Our Nutritionists</a></li>
+    </ul>
+</div>
+            <div class="footer-newsletter">
+                <h4>Stay Healthy</h4>
+                <p>Subscribe for seasonal recipes and health tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email">
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 SpiceFit Gourmet Health. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+    <!--FOOTER END-->
+</div>
+<!--MAIN CONTENT END-->
+
+<script src="{% static 'js/review.js' %}"></script>
+</body>
+</html>

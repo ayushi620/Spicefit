@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpiceFit | Login</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- SAME CSS -->
+  <link href="{% static 'css/regi.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="page">
+  <div class="card">
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+      <h1>Welcome Back</h1>
+      <p>
+        Where wholesome ingredients meet smart nutrition.<br>
+        Login to continue your SpiceFit journey.
+      </p>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+      <h2>Login</h2>
+
+      <form method="POST" class="reg-form">
+        {% csrf_token %}
+
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text" name="username" placeholder="Enter username" required>
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="Enter password" required>
+        </div>
+        
+
+        <button type="submit" class="btn">Login</button>
+      </form>
+
+      <p class="small">
+         Not a member yet?
+              <a href="{% url 'register' %}"> Register now!</a> 
+      </p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

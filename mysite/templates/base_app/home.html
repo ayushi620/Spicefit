@@ -1,0 +1,184 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiceFit | Gourmet Health & Nutrition</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="{% static 'css/home.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="menu-toggle" id="menuBtn"><i class="fa-solid fa-bars-staggered"></i></div>
+            <div class="logo">SPICEFIT<span>.</span></div>
+        </div>
+
+        <div class="nav-center-links">
+            <a href="/home">Home</a>
+            <a href="/menu">Our Menu</a>
+            <a href="/about">About us</a>
+            <a href="/review">Review</a>
+        </div>
+
+        <div class="nav-right-icons">
+
+    <a href="/like"><i class="fa-regular fa-heart"></i></a>
+    <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+
+    <div class="profile-dropdown">
+
+        <details class="profile-toggle">
+
+            <summary>
+                <i class="fa-regular fa-user"></i>
+            </summary>
+
+           <div class="profile-menu">
+                <a href="/premium"><i class="fa-solid fa-crown"></i> Premium</a>
+                <a href="/profile"><i class="fa-solid fa-id-badge"></i> Profile</a>
+                <hr>
+                <a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            </div>
+        </details>
+
+    </div>
+
+</div>
+        </div>
+    </nav>
+
+    <!-- Sidebar / Dashboard -->
+    <aside class="dashboard" id="dashboard">
+        <nav id="dashboardNav">
+            <a href="/quick"><i class="fa-solid fa-bolt"></i> Quick Recipe</a>
+            <a href="/mood"><i class="fa-solid fa-face-angry"></i> Moody Recipe</a>
+            <a href="/parents"><i class="fa-solid fa-baby"></i> For New Parents</a>
+            <a href="/plans"><i class="fa-solid fa-calendar-check"></i> Our Plans</a>
+            <a href="/meal"><i class="fa-solid fa-bullseye"></i> Meal Challenges</a>
+            <a href="/filter"><i class="fa-solid fa-magnifying-glass"></i> Ingredients Filter</a>
+            <a href="/expert"><i class="fa-solid fa-stethoscope"></i> Expert Advice</a>
+            <a href="/book"><i class="fa-solid fa-book"></i> Explore Book</a>
+            <a href="/OwnRecipe"><i class="fa-solid fa-plus-circle"></i> Add Your Own Recipe</a>
+        </nav>
+    </aside>
+ 
+<!--MAIN CONTENT SECTION START-->
+<div class="main-content" id="mainContent">
+    <div class="main-content" id="mainContent">
+    <!-- hero section start -->
+    <section class="hero">
+        <div class="video-bg">
+            <video autoplay muted loop playsinline>
+                <source src="{% static 'video/home.mp4' %}" type="video/mp4">
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Organic Fuel,<br>Mindful Living.</h1>
+            <p>Sustainably sourced, nutrient-dense meals designed to power your body and mind.</p>
+            <a href="/menu" class="btn-primary">Explore Menu</a>
+        </div>
+    </section>
+    <!-- hero section end -->
+
+    <!-- services section start -->
+    <section class="services-section">
+        <h2>Your Wellness Journey</h2>
+        <div class="services-container">
+            <div class="service-card">
+                <i class="fa-solid fa-pepper-hot"></i>
+                <h3>Clean Ingredients</h3>
+                <p>Curated meals prepared with zero additives or refined sugars. Pure, clean fuel.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-carrot"></i>
+                <h3>Plant-First</h3>
+                <p>100% Organic, macro-balanced vegetables that support your gut health and immunity.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-truck-ramp-box"></i>
+                <h3>Eco Delivery</h3>
+                <p>Sustainably packaged and carbon-neutral delivery straight to your health-conscious home.</p>
+            </div>
+        </div>
+    </section>
+    <!-- services section end -->
+
+    <!-- dish section start -->
+    <section class="dish-section">
+        <div class="dish-header">
+            <h2>New & Nourishing</h2>
+            <p style="color: var(--text-light);">Recently added recipes for a healthier you</p>
+        </div>
+        <div class="dish-grid">
+            <div class="dish-item"><img src="/media/uploads/Chocolate_chip_cake.png" alt="Dish"></div>
+            <div class="dish-item"><img src="/media/uploads/Strawberry_Banana_Smoothie.jpg"alt="Dish"></div>
+            <div class="dish-item"><img src="/media/uploads/meal-recipes1-airfryer.jpg" alt="Dish"></div>
+            <div class="dish-item"><img src="/media/uploads/meal-recipes2-no_oil.jpg" alt="Dish"></div>
+        </div>
+    </section>
+    <!-- dish section end -->
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>SpiceFit<span>.</span></h3>
+                    <p>We believe that food is medicine. Our mission is to bridge the gap between gourmet taste and peak nutritional science.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="/menu">Our Menu</a></li>
+                        <li><a href="/quick">Quick Recipes</a></li>
+                        <li><a href="/plans">Our Plans</a></li>
+                    </ul>
+                </div>
+               <div class="footer-links">
+    <h4>Learn More </h4>
+    <ul>
+        <li><a href="#">Healthy Eating Tips</a></li>
+        <li><a href="#">Meal Planning Guides</a></li>
+        <li><a href="#">Consult Our Nutritionists</a></li>
+    </ul>
+</div>
+                <div class="footer-newsletter">
+                    <h4>Stay Healthy</h4>
+                    <p>Subscribe for seasonal recipes and health tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your Email">
+                        <button type="submit">Join</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 SpiceFit Gourmet Health. All Rights Reserved.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div> <!-- end content-wrapper -->
+
+    <!-- JS -->
+    <script src="{% static 'js/home.js' %}"></script>
+</body>
+</html>

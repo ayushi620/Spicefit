@@ -1,0 +1,253 @@
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+   /* Background image + dark overlay */
+   background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+   url('/media/uploads/about.jpeg') no-repeat center center fixed;
+background-size: cover;
+background-attachment: fixed;
+  background-size: cover;  /* covers entire screen */
+  background-attachment: fixed; /* optional: makes it stay while scrolling */
+  min-height: 100vh;
+  overflow-y: auto;
+}
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  z-index: 2;
+}
+
+
+.card {
+  width: 90%;          
+  max-width: 900px;  
+  height: auto;
+  max-height: none; 
+  z-index: 2;             /* stay above background overlay */ /* optional max width */ 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* LEFT PANEL */
+.left {
+  padding: 30px 20px; 
+  color: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+     /* Gradient overlay on top of original gradient */
+ /* Background image + dark gradient overlay */
+ background: linear-gradient(
+  rgba(0,0,0,0.4), 
+  rgba(0,0,0,0.4)
+),
+url('/media/uploads/ab1.jpeg')no-repeat center center;
+background-size: cover; /* rounded only left side */
+}
+
+/* Optional single soft background image */
+.left::before {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 200px;
+  height: 200px;
+
+  background-size: contain;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.left h1,
+.left p {
+  position: relative;
+  z-index: 1;
+}
+
+.left h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.left span {
+  font-weight: 800;
+}
+
+.left p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.right h2 {
+  font-size: 28px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.right {
+  font-size: 14px;
+  color:white;
+  padding:10px 20px; 
+  background: linear-gradient(
+    rgba(0,0,0,0.6))
+}
+
+.reg-form {
+  margin-top: 20px;
+}
+
+.input-group {
+  margin-bottom: 5px; 
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 1px;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 93%;
+  padding: 10px 14px;
+  border: 1px solid #d4d4d4;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+}
+.small {
+  text-align: center;   /* centers text inside the container */
+  margin: 10px 0;       /* vertical spacing top & bottom */
+  font-size: 13px;
+  color:white;
+}
+.input-group textarea {
+  min-height: 40px;
+  resize: none;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  background: #2D5A27;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.small a {
+  color: #2D5A27;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.small a:hover {
+  text-decoration: underline;
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 1024px) {
+  .card {
+    width: 95%;
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .left {
+    padding: 40px;
+  }
+
+  .left h1 {
+    font-size: 30px;
+  }
+
+  .right {
+    padding: 40px;
+  }
+
+  .right h2 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+    border-radius: 16px;
+  }
+
+  .left {
+    padding: 30px 20px;
+  }
+
+  .left h1 {
+    font-size: 24px;
+  }
+
+  .left p {
+    font-size: 14px;
+  }
+
+  .right {
+    padding: 30px 20px;
+  }
+
+  .right h2 {
+    font-size: 24px;
+  }
+
+  .input-group input,
+  .input-group textarea {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .btn {
+    font-size: 15px;
+    padding: 11px;
+  }
+
+  .left::before {
+    width: 120px;
+    height: 120px;
+    bottom: -10px;
+    right: -10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .left h1 {
+    font-size: 22px;
+  }
+
+  .right h2 {
+    font-size: 22px;
+  }
+
+  .small {
+    font-size: 12px;
+  }
+
+  .left::before {
+    width: 80px;
+    height: 80px;
+  }
+}

@@ -1,0 +1,352 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiceFit | Gourmet Health & Nutrition</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="{% static 'css/plans.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+</head>
+<body>
+
+   <!-- overlay start -->
+<div class="overlay" id="overlay"></div>
+<!-- overlay end -->
+
+<!-- navigation/menubar start -->
+ <nav class="navbar">
+        <div class="nav-left">
+            <div class="menu-toggle" id="menuBtn"><i class="fa-solid fa-bars-staggered"></i></div>
+            <div class="logo">SPICEFIT<span>.</span></div>
+        </div>
+
+        <div class="nav-center-links">
+            <a href="/home">Home</a>
+            <a href="/menu">Our Menu</a>
+            <a href="/about">About us</a>
+            <a href="/review">Review</a>
+        </div>
+
+        <div class="nav-right-icons">
+
+    <a href="/like"><i class="fa-regular fa-heart"></i></a>
+    <a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a>
+
+    <div class="profile-dropdown">
+
+        <details class="profile-toggle">
+
+            <summary>
+                <i class="fa-regular fa-user"></i>
+            </summary>
+
+           <div class="profile-menu">
+                <a href="/premium"><i class="fa-solid fa-crown"></i> Premium</a>
+                <a href="/profile"><i class="fa-solid fa-id-badge"></i> Profile</a>
+                <hr>
+                <a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            </div>
+
+        </details>
+
+    </div>
+
+</div>
+        </div>
+    </nav>
+
+<aside class="dashboard" id="dashboard">
+    <nav id="dashboardNav">
+        <a href="/quick"><i class="fa-solid fa-bolt"></i> Quick Recipe</a>
+            <a href="/mood"><i class="fa-solid fa-face-angry"></i> Moody Recipe</a>
+            <a href="/parents"><i class="fa-solid fa-baby"></i> For New Parents</a>
+            <a href="/plans"><i class="fa-solid fa-calendar-check"></i> Our Plans</a>
+            <a href="/meal"><i class="fa-solid fa-bullseye"></i> Meal Challenges</a>
+            <a href="/filter"><i class="fa-solid fa-magnifying-glass"></i> Ingredients Filter</a>
+            <a href="/expert"><i class="fa-solid fa-stethoscope"></i> Expert Advice</a>
+            <a href="/book"><i class="fa-solid fa-book"></i> Explore Book</a>
+            <a href="/OwnRecipe"><i class="fa-solid fa-plus-circle"></i> Add Your Own Recipe</a>
+    </nav>
+</aside>
+<!-- navigation/menubar end -->
+<div class="main-content" id="mainContent">   
+<!-- Hero Banner -->
+<section class="heros-banner">
+  <img src="/media/uploads/PLANS.jpeg" alt="Wellness Banner">
+  <div class="heros-content"><br><br>
+    <h1>Your Complete Wellness Journey </h1>
+    <p>Discover cooking plans, diet guidance, and lifestyle tips to stay healthy and energized.</p>
+    <a href="#landing" class="btn">Explore Plans</a>
+  </div>
+</section>
+<br>
+ 
+<!-- Landing Page -->
+<div class="section landing active" id="landing">
+  <h1>Choose Your Plan</h1>
+  <div class="main-cards">
+    <!-- Cards added from HTML -->
+   {% for category in categories %}
+  <div class="card"
+       data-category="{{ category.name }}"
+    data-icon="
+{% if category.icon == 'fa-solid fa-seedling' %}🌱
+{% elif category.icon == 'fa-solid fa-dumbbell' %}💪
+{% elif category.icon == 'fa-solid fa-leaf' %}🥗
+{% elif category.icon == 'fa-solid fa-heart' %}❤️
+{% elif category.icon == 'fa-solid fa-fire' %}🔥
+{% elif category.icon == 'fa-solid fa-apple-whole' %}🍎
+{% elif category.icon == 'fa-solid fa-carrot' %}🥕
+{% elif category.icon == 'fa-solid fa-bowl-food' %}🥣
+{% elif category.icon == 'fa-solid fa-cheese' %}🧀
+{% elif category.icon == 'fa-solid fa-fish' %}🐟
+{% elif category.icon == 'fa-solid fa-egg' %}🥚
+{% elif category.icon == 'fa-solid fa-wheat-awn' %}🌾
+{% elif category.icon == 'fa-solid fa-person-running' %}🏃
+{% elif category.icon == 'fa-solid fa-brain' %}🧠
+{% elif category.icon == 'fa-solid fa-user-chef' %}👩‍🍳
+{% elif category.icon == 'fa-solid fa-mug-hot' %}☕
+{% elif category.icon == 'fa-solid fa-bacon' %}🥓
+{% elif category.icon == 'fa-solid fa-bread-slice' %}🍞
+{% elif category.icon == 'fa-solid fa-burger' %}🍔
+{% elif category.icon == 'fa-solid fa-pizza-slice' %}🍕
+{% elif category.icon == 'fa-solid fa-ice-cream' %}🍨
+{% elif category.icon == 'fa-solid fa-cake-candles' %}🎂
+{% elif category.icon == 'fa-solid fa-glass-water' %}💧
+{% elif category.icon == 'fa-solid fa-bottle-water' %}🚰
+{% elif category.icon == 'fa-solid fa-stopwatch' %}⏱️
+{% elif category.icon == 'fa-solid fa-calendar-check' %}📅
+{% elif category.icon == 'fa-solid fa-clock' %}⏰
+{% elif category.icon == 'fa-solid fa-weight-scale' %}⚖️
+{% elif category.icon == 'fa-solid fa-chart-line' %}📈
+{% elif category.icon == 'fa-solid fa-bolt' %}⚡
+{% elif category.icon == 'fa-solid fa-moon' %}🌙
+{% elif category.icon == 'fa-solid fa-sun' %}☀️
+{% elif category.icon == 'fa-solid fa-shield-heart' %}🛡️
+{% elif category.icon == 'fa-solid fa-hands-holding-heart' %}🤲
+{% elif category.icon == 'fa-solid fa-face-smile' %}😊
+{% elif category.icon == 'fa-solid fa-star' %}⭐
+{% elif category.icon == 'fa-solid fa-house' %}🏠
+{% elif category.icon == 'fa-solid fa-bed' %}🛏️
+{% elif category.icon == 'fa-solid fa-utensils' %}🍽️
+{% elif category.icon == 'fa-solid fa-basket-shopping' %}🛒
+{% elif category.icon == 'fa-solid fa-gift' %}🎁
+{% elif category.icon == 'fa-solid fa-crown' %}👑
+{% elif category.icon == 'fa-solid fa-medal' %}🏅
+{% elif category.icon == 'fa-solid fa-trophy' %}🏆
+{% elif category.icon == 'fa-solid fa-comments' %}💬
+{% elif category.icon == 'fa-solid fa-phone' %}📞
+{% elif category.icon == 'fa-solid fa-envelope' %}✉️
+{% elif category.icon == 'fa-solid fa-video' %}📹
+{% elif category.icon == 'fa-solid fa-music' %}🎵
+{% elif category.icon == 'fa-solid fa-book-open' %}📖
+{% elif category.icon == 'fa-solid fa-bicycle' %}🚴
+{% elif category.icon == 'fa-solid fa-person-swimming' %}🏊
+{% elif category.icon == 'fa-solid fa-mountain' %}⛰️
+{% elif category.icon == 'fa-solid fa-tree' %}🌳
+{% elif category.icon == 'fa-solid fa-spa' %}🧘
+{% elif category.icon == 'fa-solid fa-hand-holding-medical' %}🩺
+{% elif category.icon == 'fa-solid fa-pills' %}💊
+{% elif category.icon == 'fa-solid fa-hospital' %}🏥
+{% elif category.icon == 'fa-solid fa-dna' %}🧬
+{% elif category.icon == 'fa-solid fa-flask' %}🧪
+{% elif category.icon == 'fa-solid fa-bell' %}🔔
+{% elif category.icon == 'fa-solid fa-lock' %}🔒
+{% elif category.icon == 'fa-solid fa-unlock' %}🔓
+{% elif category.icon == 'fa-solid fa-credit-card' %}💳
+{% elif category.icon == 'fa-solid fa-wallet' %}👛
+{% elif category.icon == 'fa-solid fa-graduation-cap' %}🎓
+{% else %}⭐
+{% endif %}">
+
+    <h3>{{ category.name }}</h3>
+    <p>{{ category.description }}</p>
+
+  </div>
+{% endfor %}
+  </div>
+</div>
+
+<!-- Plan Page -->
+<div class="section plan-page" id="planPage">
+  <h1>Select a Plan from Search</h1>
+  <div class="search-container">
+    <input type="text" placeholder="Search plans..." id="searchInput" readonly>
+    <div class="dropdown" id="dropdown"></div>
+  </div>
+  <div class="recipes" id="recipesContainer"></div>
+  <button class="back-btn" onclick="goBack()">← Back to Plans</button>
+</div>
+
+<!-- All Plans in HTML -->
+<div id="allPlans" style="display:none;">
+   {% for category in categories %}
+      {% for plan in category.plans.all %}
+
+        <div class="plan"
+             data-category="{{ category.name }}"
+             data-name="{{ plan.name }}">
+        </div>
+
+      {% endfor %}
+  {% endfor %}
+  {% comment %} <div class="plan" data-category="Diet" data-name="Weight Gain"></div>
+  <div class="plan" data-category="Diet" data-name="Protein Diet"></div>
+  <div class="plan" data-category="Diet" data-name="Vegan Diet"></div>
+
+  <div class="plan" data-category="skill" data-name="Beginner"></div>
+  <div class="plan" data-category="skill" data-name="Intermediate"></div>
+  <div class="plan" data-category="skill" data-name="Advanced"></div>
+
+  <div class="plan" data-category="lifestyle" data-name="vegan"></div>
+  <div class="plan" data-category="lifestyle" data-name="vegetarian"></div>
+  <div class="plan" data-category="lifestyle" data-name="lactose-free"></div> {% endcomment %}
+</div>
+
+<!-- All Recipes in HTML -->
+<div id="allRecipes" style="display:none;">
+ <div class="cards-container">
+  {% for category in categories %}
+      {% for plan in category.plans.all %}
+
+        <div class="recipe" data-plan="{{ plan.name }}">
+
+          {% for item in plan.ourplans.all %}
+
+          <div class="cards"
+               data-id="{{ item.id }}"
+               data-title="{{ item.title }}"
+               data-img="{{ item.image.url }}"
+               data-ing="{{ item.ingredients }}"
+               data-recipe="{{ item.instructions }}">
+
+            <div class="image-container">
+              <img src="{{ item.image.url }}">
+
+       {% if item.is_premium and not is_premium_user %}
+        <i class="fa-solid fa-crown icon-left crown-premium"></i>
+    {% endif %}
+
+    <i class="fa-solid fa-heart icon-right
+    {% if item.is_premium and not is_premium_user %}locked-heart{% endif %}"
+    {% if not r.is_premium or is_premium_user %}
+        onclick="likeRecipe(this)"
+    {% endif %}>
+    </i>
+</div>
+
+  <h2>{{ item.title }}</h2>
+
+  <div class="btn-group">
+
+<!-- Ingredients Button -->
+<button class="btn-ing
+  {% if item.is_premium and not is_premium_user %}locked-btn{% endif %}"
+  
+  {% if item.is_premium and not is_premium_user %}
+      onclick="premiumAlert(); return false;"
+  {% else %}
+      onclick="openBox('Ingredients',this)"
+  {% endif %}>
+  
+  Ingredients
+</button>
+
+<!-- Recipe Button -->
+<button class="btn-view
+  {% if item.is_premium and not is_premium_user %}locked-btn{% endif %}"
+  
+  {% if item.is_premium and not is_premium_user %}
+      onclick="premiumAlert(); return false;"
+  {% else %}
+      onclick="openBox('Recipe',this)"
+  {% endif %}>
+  
+  View Recipe
+</button>
+
+</div>
+
+          </div>
+
+          {% endfor %}
+
+        </div>
+
+      {% endfor %}
+    {% endfor %}
+    </div>  
+</div>
+<!--Footer section starts-->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>SpiceFit<span>.</span></h3>
+                <p>We believe that food is medicine. Our mission is to bridge the gap between gourmet taste and peak nutritional science.</p>
+            </div>
+            <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="/menu">Our Menu</a></li>
+                        <li><a href="/quick">Quick Recipes</a></li>
+                        <li><a href="/plans">Our Plans</a></li>
+                    </ul>
+                </div>
+               <div class="footer-links">
+    <h4>Learn More </h4>
+    <ul>
+        <li><a href="#">Healthy Eating Tips</a></li>
+        <li><a href="#">Meal Planning Guides</a></li>
+        <li><a href="#">Consult Our Nutritionists</a></li>
+    </ul>
+</div>
+            <div class="footer-newsletter">
+                <h4>Stay Healthy</h4>
+                <p>Subscribe for seasonal recipes and health tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email">
+                    <button type="submit">Join</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 SpiceFit Gourmet Health. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+    <div class="popup-overlay" id="popup-overlay">
+  <div class="popup">
+    <span onclick="closeBox()">✖</span>
+    <h3 id="pop-title"></h3>
+    <p id="pop-content"></p>
+  </div>
+</div>
+    <div id="like-alert">Recipe added to liked page!</div>
+          <div id="premium-alert">
+    <span>👑 This recipe is Premium. Please buy Premium to access.</span>
+    
+    <div class="premium-actions">
+        <a href="/premium">
+            <button class="buy-premium-btn">Buy Premium</button>
+        </a>
+        <button class="close-premium-btn" onclick="closePremiumAlert()">Close</button>
+    </div>
+</div>
+<script src="{% static 'js/plans.js' %}"></script>
+</body>
+</html>

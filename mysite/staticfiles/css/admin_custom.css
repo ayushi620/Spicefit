@@ -1,0 +1,7 @@
+/* admin_custom.css */
+.app-list li.model {
+    width: 100%; /* Adjust for number of columns */
+    float: left;
+    margin-right: 2%;
+    margin-bottom: 20px;
+}

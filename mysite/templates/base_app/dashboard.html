@@ -1,0 +1,345 @@
+{% extends "admin/change_list.html" %}
+{% load admin_urls %}  
+
+{% block content %}
+<form class="mb-4 d-flex align-items-center flex-wrap" style="gap: 20px;">
+    <label for="order_date_filter" style="font-weight: bold; font-size: 16px;">
+        Filter Orders:
+    </label>
+    <select name="order_date_filter" id="order_date_filter" class="custom-select">
+        <option value="all" selected>All</option>
+        <option value="today">Today</option>
+        <option value="past_7_days">Past 7 Days</option>
+        <option value="this_month">This Month</option>
+        <option value="this_year">This Year</option>
+        <option value="custom">Custom Date</option>
+    </select>
+
+    <input type="date" id="custom_start_date" class="form-control form-control-sm w-auto" style="display:none;">
+    <input type="date" id="custom_end_date" class="form-control form-control-sm w-auto" style="display:none;">
+</form>
+
+<style>
+form.d-flex {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.custom-select {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    min-width: 180px;
+    font-size: 14px;
+}
+.card-link { text-decoration: none; }
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 30px;
+}
+
+.table-bordered.table-striped {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 18px;
+    background-color: #fff;
+    color: #333;
+    box-shadow: 0 0 0.25rem rgba(0,0,0,0.05);
+    border-radius: 0.35rem;
+    overflow: hidden;
+}
+
+.table-bordered.table-striped th {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.table-bordered.table-striped td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.table-bordered.table-striped tbody tr:nth-child(odd) {
+    background-color: #fafafa;
+}
+
+.table-bordered.table-striped tbody tr:hover {
+    background-color: #f1f3f5;
+}
+</style>
+
+<div class="container-fluid">
+    <h2 class="mb-4">📊 Dashboard</h2>
+
+    <!-- ================== ROW 1 ================== -->
+    <div class="row">
+        {% url 'admin:base_app_moodyrecipe_changelist' as moody_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ moody_admin_url }}" class="card-link">
+                <div class="card bg-info text-white mb-3">
+                    <div class="card-body">Moody Recipes<h3>{{ moody_recipe_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+
+        {% url 'admin:base_app_mealrecipe_changelist' as meal_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ meal_admin_url }}" class="card-link">
+                <div class="card bg-success text-white mb-3">
+                    <div class="card-body">Meal Recipes<h3>{{ meal_recipe_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+
+        {% url 'admin:base_app_menurecipe_changelist' as menu_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ menu_admin_url }}" class="card-link">
+                <div class="card bg-warning text-white mb-3">
+                    <div class="card-body">Menu Recipes<h3>{{ menu_recipe_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+
+        {% url 'admin:base_app_quickrecipe_changelist' as quick_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ quick_admin_url }}" class="card-link">
+                <div class="card bg-danger text-white mb-3">
+                    <div class="card-body">Quick Recipes<h3>{{ quick_recipe_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ================== ROW 2 ================== -->
+    <div class="row">
+        {% url 'admin:base_app_parentrecipe_changelist' as parent_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ parent_admin_url }}" class="card-link">
+                <div class="card bg-secondary text-white mb-3">
+                    <div class="card-body">Parent Recipes<h3>{{ parent_recipe_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+
+        {% url 'admin:base_app_recipe_changelist' as ingredient_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ ingredient_admin_url }}" class="card-link">
+                <div class="card bg-primary text-white mb-3">
+                    <div class="card-body">Ingredient Recipes<h3>{{ recipe_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+
+        {% url 'admin:base_app_ourplan_changelist' as plan_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ plan_admin_url }}" class="card-link">
+                <div class="card bg-info text-white mb-3">
+                    <div class="card-body">Our Plans<h3>{{ our_plan_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+
+        {% url 'admin:base_app_book_changelist' as book_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ book_admin_url }}" class="card-link">
+                <div class="card bg-success text-white mb-3">
+                    <div class="card-body">Total Books<h3>{{ book_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ================== ROW 3 ================== -->
+    <div class="row">
+        {% url 'admin:base_app_ownrecipe_changelist' as own_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ own_admin_url }}" class="card-link">
+                <div class="card bg-dark text-white mb-3">
+                    <div class="card-body">Approved Own Recipes<h3>{{ approved_own_recipe_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+
+        {% url 'admin:base_app_profile_changelist' as profile_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ profile_admin_url }}" class="card-link">
+                <div class="card bg-warning text-white mb-3">
+                    <div class="card-body">Total Profiles<h3>{{ profile_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+
+        {% url 'admin:base_app_sitereview_changelist' as review_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ review_admin_url }}" class="card-link">
+                <div class="card bg-primary text-white mb-3">
+                    <div class="card-body">Approved Reviews<h3>{{ approved_review_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+
+        {% url 'admin:base_app_visitor_changelist' as visitor_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ visitor_admin_url }}" class="card-link">
+                <div class="card bg-info text-white mb-3">
+                    <div class="card-body">Total Visitors<h3>{{ total_visitor_count }}</h3></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ================== ROW 4 ================== -->
+    <div class="row">
+        {% url 'admin:base_app_order_changelist' as order_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ order_admin_url }}" class="card-link">
+                <div class="card bg-danger text-white mb-3">
+                    <div class="card-body">Total Orders<h3 id="total_orders_count">{{ all_orders|length }}</h3></div>
+                </div>
+            </a>
+        </div>
+
+        {% url 'admin:base_app_order_changelist' as order_admin_url %}
+        <div class="col-md-3">
+            <a href="{{ order_admin_url }}" class="card-link">
+                <div class="card bg-success text-white mb-3">
+                    <div class="card-body">Total Payment<h3 id="success_payments_count">0.00</h3></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    
+</div>
+ <div class="table-container">
+        <h3>Orders</h3>
+        <table class="table table-bordered table-striped" id="orders_table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Users</th>
+                    <th>Created At</th>
+                    <th>Total Amount</th>
+                    <th>Payment Status</th>
+                </tr>
+            </thead>
+            <tbody  id="orders_table_body">
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{order.user}}</td>
+                    <td>{{ order.created_at }}</td>
+                    <td>{{ order.total_amount }}</td>
+                    <td>{{ order.payment.status|default:"PENDING" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extrahead %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const orders = {{ all_orders|safe }};
+    const filterSelect = document.getElementById('order_date_filter');
+    const customStart = document.getElementById('custom_start_date');
+    const customEnd = document.getElementById('custom_end_date');
+    const totalOrdersCount = document.getElementById('total_orders_count');
+    const successPaymentsCount = document.getElementById('success_payments_count');
+    const ordersTableBody = document.querySelector('#orders_table tbody');
+
+    function updateCounts(filteredOrders) {
+        totalOrdersCount.textContent = filteredOrders.length;
+
+        const successPaymentsSum = filteredOrders
+            .filter(o => o.payment_status && o.payment_status.toUpperCase() === 'SUCCESS')
+            .reduce((sum, o) => sum + parseFloat(o.total_amount), 0);
+
+        if(successPaymentsCount) successPaymentsCount.textContent = successPaymentsSum.toFixed(2);
+    }
+
+    function renderTable(filteredOrders) {
+        if(!ordersTableBody) return;
+        ordersTableBody.innerHTML = '';
+
+        filteredOrders.forEach(o => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${o.id}</td>
+                <td>${o.user || ''}</td>    
+                <td>${o.created_at.split('T')[0]}</td>
+                <td>${parseFloat(o.total_amount).toFixed(2)}</td>
+                <td>${o.payment_status}</td>
+            `;
+            ordersTableBody.appendChild(tr);
+        });
+    }
+
+    function filterOrders(filter) {
+        let filtered = orders;
+        const today = new Date();
+        const todayStr = today.toISOString().split('T')[0];
+
+        if (filter === 'today') filtered = orders.filter(o => o.created_at.split('T')[0] === todayStr);
+        else if (filter === 'past_7_days') {
+            const weekAgo = new Date(today);
+            weekAgo.setDate(today.getDate() - 7);
+            filtered = orders.filter(o => new Date(o.created_at) >= weekAgo);
+        }
+        else if (filter === 'this_month') {
+            const month = today.getMonth();
+            const year = today.getFullYear();
+            filtered = orders.filter(o => {
+                const d = new Date(o.created_at);
+                return d.getMonth() === month && d.getFullYear() === year;
+            });
+        }
+        else if (filter === 'this_year') {
+            const year = today.getFullYear();
+            filtered = orders.filter(o => new Date(o.created_at).getFullYear() === year);
+        }
+        else if (filter === 'custom') {
+            const start = customStart.value;
+            const end = customEnd.value;
+            if(start && end) {
+                filtered = orders.filter(o => {
+                    const d = o.created_at.split('T')[0];
+                    return d >= start && d <= end;
+                });
+            } else if(start) {
+                filtered = orders.filter(o => o.created_at.split('T')[0] === start);
+            }
+        }
+
+        updateCounts(filtered);
+        renderTable(filtered);
+    }
+
+    filterSelect.addEventListener('change', function() {
+        if(this.value === 'custom') {
+            customStart.style.display = 'inline-block';
+            customEnd.style.display = 'inline-block';
+        } else {
+            customStart.style.display = 'none';
+            customEnd.style.display = 'none';
+            filterOrders(this.value);
+        }
+    });
+
+    [customStart, customEnd].forEach(el => {
+        if(el) el.addEventListener('change', () => filterOrders('custom'));
+    });
+
+    // Initial render
+    filterOrders('all');
+});
+</script>
+{% endblock %}

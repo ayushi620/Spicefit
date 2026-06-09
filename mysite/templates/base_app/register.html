@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpiceFit | Gourmet Health & Nutrition</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link href="{% static 'css/regi.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="page">
+    <div class="card">
+      <div class="left">
+        <h1>Welcome to <span>SpiceFit</span></h1>
+        <p>Join SpiceFit and discover smart nutrition, balanced meals,
+Start your journey toward a healthier you today.</p>
+        <div class="decor"></div>
+      </div>
+
+      <div class="right">
+        <h2>Create your account</h2>
+        <p class="small">Fill in your details to create a new account.</p>
+
+        <form method="POST" class="reg-form">
+          {% csrf_token %}
+
+          <div class="input-group">
+            <label>Username</label>
+            <input name="username" type="text" placeholder="Enter username" required>
+          </div>
+
+          <div class="input-group">
+            <label>Email</label>
+            <input name="email" type="email" placeholder="Enter email" required>
+          </div>
+
+          <div class="input-group">
+            <label>Password</label>
+            <input name="password" type="password" placeholder="Enter password" required>
+          </div>
+
+          <div class="input-group">
+            <label>Phone</label>
+           <input 
+  name="phone"
+  type="tel"
+  placeholder="Enter phone number"
+  pattern="[1-9][0-9]{9}"
+
+  maxlength="10"
+  required
+  title="Enter a valid 10-digit mobile number"
+>
+          </div>
+
+          <div class="input-group">
+            <label>Address</label>
+            <textarea name="address" placeholder="Enter your address"></textarea>
+          </div>
+
+          <button type="submit" class="btn" id="registerBtn">Register</button>
+        </form>
+
+        <p class="small">
+          Already have an account? <a href="{% url 'login' %}">Login</a>
+        </p>
+        <p class="small">
+  Just visiting? <a href="{% url 'home' %}">Join SpiceFit.</a>
+</p>
+      </div>
+    </div>
+  </div> 
+
+  <script src="{% static 'js/regi.js' %}" defer></script>
+</body>
+</html>
